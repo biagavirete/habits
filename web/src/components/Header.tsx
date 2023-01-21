@@ -2,15 +2,18 @@ import { Plus, X } from "phosphor-react";
 import * as Dialog from '@radix-ui/react-dialog';
 import LogoImage from '../assets/logo.svg';
 import NewHabitForm from './NewHabitForm';
+import { useState } from "react";
 
 function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="w-full max-w-3xl mx-auto flex items-center justify-between">
       <img src={LogoImage} alt="" />
-      <Dialog.Root>
+      <Dialog.Root open={isModalOpen} onOpenChange={setIsModalOpen}>
         <Dialog.Trigger
           type="button"
-          className="border border-violet-500 font-semibold rounded-lg px-6 py-4 flex items-center gap-3 hover:border-violet-300"
+          className="border border-violet-500 font-semibold rounded-lg px-6 py-4 flex items-center gap-3 hover:border-violet-300 transition-colors focus:outline-none focus:ring-2 focus:ring-violet-700 focus:ring-offset-2 focus:ring-offset-background"
         >
           <Plus size={20} className="text-violet-500" />
           New habit
@@ -24,7 +27,7 @@ function Header() {
             <Dialog.Title className="text-3xl leading-tight font-extrabold">
               Create habit
             </Dialog.Title>
-            <NewHabitForm />
+            <NewHabitForm isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
